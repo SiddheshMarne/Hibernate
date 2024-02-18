@@ -1,0 +1,57 @@
+package com.tca;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.ObjectOutputStream;
+
+import com.tca.entities.Student;
+
+public class AppSerialize {
+
+	public static void main(String[] args) throws Exception {
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+
+		try {
+			fos = new FileOutputStream("resources/student.ser");
+			oos = new ObjectOutputStream(fos);
+			File f = new File("resources/Student.txt");
+			if (!f.exists()) {
+				System.out.println("File does not exists");
+				System.exit(0);
+			}
+			if (!f.isFile()) {
+				System.out.println("Not a file");
+				System.exit(0);
+			}
+			FileReader fr = new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			String str = "";
+			while (true) {
+				str = br.readLine();
+
+				if (str == null) {
+					break;
+				}
+				String[] arrOfStr = str.split(",");
+				Student ob = new Student();
+				ob.setRno(Integer.parseInt(arrOfStr[0]));
+				ob.setName(arrOfStr[1]);
+				ob.setPer(Double.parseDouble(arrOfStr[2]));
+				oos.writeObject(ob);
+			}
+			
+
+			System.out.println("Object has been serialized");
+		} catch (Exception e) {
+
+		} finally {
+			fos.close();
+			oos.close();
+		}
+
+	}
+
+}
