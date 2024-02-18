@@ -29,7 +29,7 @@ public class AppDeserialize {
 				System.out.println("Not a file");
 				System.exit(0);
 			}
-			BufferedWriter bw =new BufferedWriter(new FileWriter(f));
+			
 			Student s =null;
 			while(true)
 			{
@@ -44,19 +44,20 @@ public class AppDeserialize {
 						break;
 					}
 					
-					String line = s.getRno()+","+s.getName()+","+s.getPer();
-					bw.write(line);
+				
 					fw.append(String.valueOf(s.getRno()));
 					fw.append(",");
 					fw.append(s.getName());
 					fw.append(",");
 					fw.append(String.valueOf(s.getPer()));
+					fw.append("\n");
 					System.out.println(""+s.getRno());
 					System.out.println(""+s.getName());
 					System.out.println(""+s.getPer());
 				
-				
 			}
+			bw.close();
+			fw.close();
 			
 		} catch (Exception e) 
 		{
